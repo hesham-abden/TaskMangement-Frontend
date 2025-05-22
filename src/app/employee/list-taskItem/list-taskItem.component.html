@@ -1,0 +1,57 @@
+<h1 id="tableLabel">MyTasks</h1>
+<div class="d-flex justify-content-start align-items-center vh-2">
+</div>
+
+
+<p *ngIf="!TaskItems"><em>Loading...</em></p>
+<table class='table table-striped text-center' aria-labelledby="tableLabel" *ngIf="TaskItems">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>StartDate</th>
+      <th style="text-align:center">
+        EndDate <div>
+        </div>
+      </th>
+      <th>
+        UserName
+      </th>
+      <th>
+        Completion Status
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let Item of TaskItems">
+      <td>{{ Item.title }}</td>
+      <td>{{ Item.description }}</td>
+      <td>{{ Item.startDate }}</td>
+      <td>{{ Item.endDate }}</td>
+      <td>{{ Item.userName }}</td>
+      <td>
+<div class="d-grid gap-2">
+  <button 
+    type="button"
+    class="btn"
+    [ngClass]="{
+      'btn-success': Item.completionStatus === 'Completed',
+      'btn-danger': Item.completionStatus !== 'Completed',
+      'disabled': Item.completionStatus === 'Completed',
+      'opacity-50': Item.completionStatus === 'Completed'
+    }"
+    (click)="MarkAsComplete(Item)"
+    [disabled]="Item.completionStatus === 'Completed'"
+  >
+    {{ Item.completionStatus }}
+  </button>
+</div>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+

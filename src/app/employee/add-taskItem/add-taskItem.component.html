@@ -1,0 +1,49 @@
+<div>
+  <h2>My Tasks</h2>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <input type="text" name="title" id="title" formControlName="title" required placeholder="Title" />
+    <div *ngIf="title.invalid && (title?.dirty || title?.touched)" class="h-25">
+      <div class="alert alert-danger" *ngIf="title?.errors?.['required']">
+        title is required.
+      </div>
+      <div class="alert alert-danger" *ngIf="title?.errors?.['pattern']">
+        title must be alphabetic.
+      </div>
+    </div>
+    <input type="text" id="description" formControlName="description" required placeholder="Description" />
+    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="h-25">
+      <div class="alert alert-danger" *ngIf="description.errors?.['required']">
+        Description is required.
+      </div>
+    </div>
+  <small class="form-text text-muted">Select The Start Date</small>
+<input type="date" id="startDate" formControlName="startDate" class="form-control" required placeholder="YYYY-MM-DD" />
+<div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="h-25">
+  <div class="alert alert-danger" *ngIf="startDate.errors?.['required']">
+    Start Date is required.
+  </div>
+</div>
+<small class="form-text text-muted">Select The End Date</small>
+<input type="date" id="endDate" formControlName="endDate" class="form-control" required placeholder="End Date" />
+<div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="h-25">
+  <div class="alert alert-danger" *ngIf="endDate.errors?.['required']">
+    End Date is required.
+  </div>
+</div>
+    <div *ngIf="users">
+<select formControlName="assignedUserId" class="form-select">
+  <option [ngValue]="null" disabled>Assign User</option>
+  <option *ngFor="let us of users" [ngValue]="us.id">
+    {{ us.name }}
+  </option>
+</select>
+    <div *ngIf="form.controls.assignedUserId.invalid && (form.controls.assignedUserId.dirty)" class="h-25">
+      <div class="alert alert-danger" *ngIf="form.controls.assignedUserId.errors?.['required']">
+        Assigned User is required.
+      </div>
+    </div>
+  </div>
+
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+  </form>
+</div>
